@@ -1,0 +1,143 @@
+.header{
+    border-bottom: 1px solid #dfdcdc;
+}
+
+.header_wrapper{
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 10%;
+    padding: 25px 20px;
+    font-size: 12px;
+}
+
+.header_logo{
+    display: flex;
+    align-items: center;
+    gap: 10%;
+}
+
+.header_nav{
+    display: flex;
+    align-items: center;
+    gap: 10%;
+    white-space: nowrap;
+    padding-right: 25%;
+}
+
+.header_nav_item{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+.active::after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background-color: #A64AC9;
+    display: inline-block;
+    position: relative;
+    bottom: -29px;
+}
+
+.header_cover{
+    display: flex;
+    align-items: center;
+    gap: 5%;
+    white-space: nowrap
+}
+
+.header_language{
+    display: flex;
+    gap: 4%;
+    cursor: pointer;
+}
+
+.header_cover input{
+    padding-left: 2px;
+    width: 100px;
+    background-color: rgb(245, 244, 244);
+
+}
+
+
+@media (max-width: 1200px) {
+    .header_logo{
+        display: none;
+    }
+    
+    /*.header_logo{
+        display: none;
+    }
+
+    .header_cover{
+    }
+    .header_cover input{
+        display: none;
+    }*/
+
+    .header_nav{
+        display: flex;
+        align-items: center;
+        gap: 10%;
+        white-space: nowrap;
+        font-size: 12px;
+        padding-right: 0%;
+    }
+
+    .header_wrapper{
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .active::after {
+        content: '';
+        width: 100%;
+        height: 1px;
+        background-color: #A64AC9;
+        display: inline-block;
+        position: relative;
+        bottom: -10%;
+    }
+}
+
+
+@media (max-width: 850px) {
+
+}
+
+
+@media (max-width: 600px) {
+    .header_nav{
+        display: flex;
+        align-items: center;
+        gap: 5%;
+        white-space: wrap;
+
+    }
+
+    .header_nav_item{
+        text-decoration: underline;
+        text-align: center;
+    }
+
+    .active::after{
+        display: none;
+    }
+
+    
+    .header_nav{
+        display: flex;
+        align-items: start;
+        gap: 5%;
+        white-space: nowrap;
+        font-size: 10px;
+        margin-right: 12%;
+        
+    }
+
+
+}

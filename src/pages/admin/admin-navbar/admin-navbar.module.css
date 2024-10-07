@@ -1,0 +1,74 @@
+.admin_navbar{
+    width: 15%;
+    border-right: 1px solid lightgray;
+    height: 100%;
+    background-color: rgb(29, 28, 28);
+}
+
+.admin_navbar_wrapper{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+    margin-top: 30px;
+
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+}
+
+.navbar_item{
+    cursor: pointer;
+    position: relative;
+
+}
+
+.navbar_item p{
+   padding: 10px;
+   text-decoration: underline;
+   color: white;
+
+}
+
+.active{
+    background-color: rgb(142, 142, 157);
+}
+
+.submenu {
+    margin-left: 20px; /* Смещаем подпункты вправо для визуального эффекта вложенности */
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.3s ease-in-out;
+}
+
+.submenu.visible {
+    max-height: 150px; /* Укажите максимальную высоту, которая вмещает все элементы */
+}
+
+.submenu .navbar_item {
+    padding-left: 20px; /* Дополнительный отступ для подпунктов */
+}
+
+
+.submenu::before{
+    content: '';
+    position: absolute;
+    height: 9%;
+
+    width: 1px;
+    left: 1.3%;
+    background-color: #fff;
+}
+
+.submenu .navbar_item::after {
+    content: '';
+    position: absolute;
+    height: 1px;
+    width: 30px;
+    left: 0px;
+    background-color: #fff;
+    top: 50%;
+}
+
+.submenu .navbar_item p {
+    margin-left: 10px; /* Отступ текста от линии */
+}
