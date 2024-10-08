@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import s from './popup-form.module.css';
 import { sendForm } from '../api';
+import { useTranslation } from 'react-i18next';
 
 interface PopupFormProps {
     isOpen: boolean;
@@ -8,6 +9,7 @@ interface PopupFormProps {
 }
 
 const PopupForm: React.FC<PopupFormProps> = ({ isOpen, onClose }) => {
+    const { t, i18n } = useTranslation();
     const [formData, setFormData] = useState<{
         manufacturerIcon: FileList | null;
         products: FileList | null;
@@ -96,58 +98,131 @@ const PopupForm: React.FC<PopupFormProps> = ({ isOpen, onClose }) => {
         <div className={s.popup}>
             <div className={s.popup_content}>
                 <div className={s.title_popup}>
-                    <h2>Заполните форму</h2>
+                    <h2>{i18n.language === 'en' ? 'Fill out the form' : 'Заполните форму'}</h2>
                     <span className={s.close} onClick={onClose}>&times;</span>
                 </div>
                 <form className={s.formModal} onSubmit={handleSubmit}>
                     <div className={s.input_form}>
-                        <label>Загрузите ваш логотип</label>
-                        <input placeholder='Загрузите ваш логотип' type="file" name="manufacturerIcon" onChange={handleChange} required />
+                        <label>{i18n.language === 'en' ? 'Upload your logo' : 'Загрузите ваш логотип'}</label>
+                        <input 
+                            placeholder={i18n.language === 'en' ? 'Upload your logo' : 'Загрузите ваш логотип'} 
+                            type="file" 
+                            name="manufacturerIcon" 
+                            onChange={handleChange} 
+                            required 
+                        />
                     </div>
                     <div className={s.input_form}>
-                        <label>Загрузите фото (до 10 шт.)</label>
-                        <input placeholder='Загрузите фото (до 10 шт.)' type="file" name="products" multiple onChange={handleChange} required />
+                        <label>{i18n.language === 'en' ? 'Upload photos (up to 10)' : 'Загрузите фото (до 10 шт.)'}</label>
+                        <input 
+                            placeholder={i18n.language === 'en' ? 'Upload photos (up to 10)' : 'Загрузите фото (до 10 шт.)'} 
+                            type="file" 
+                            name="products" 
+                            multiple 
+                            onChange={handleChange} 
+                            required 
+                        />
                     </div>
                     <div className={s.input_form}>
-                        <input placeholder='Название компании (RU)' type="text" name="nameRu" onChange={handleChange} required />
+                        <input 
+                            placeholder={i18n.language === 'en' ? 'Company name (RU)' : 'Название компании (RU)'} 
+                            type="text" 
+                            name="nameRu" 
+                            onChange={handleChange} 
+                            required 
+                        />
                     </div>
                     <div className={s.input_form}>
-                        <input placeholder='Название компании (EN)' type="text" name="nameEn" onChange={handleChange} required />
+                        <input 
+                            placeholder={i18n.language === 'en' ? 'Company name (EN)' : 'Название компании (EN)'} 
+                            type="text" 
+                            name="nameEn" 
+                            onChange={handleChange} 
+                            required 
+                        />
                     </div>
                     <div className={s.input_form}>
-                        <input placeholder='Описание на русском языке' name="descriptionRu" onChange={handleChange} />
+                        <input 
+                            placeholder={i18n.language === 'en' ? 'Description (RU)' : 'Описание на русском языке'} 
+                            name="descriptionRu" 
+                            onChange={handleChange} 
+                        />
                     </div>
                     <div className={s.input_form}>
-                        <input placeholder='Описание на английском языке' name="descriptionEn" onChange={handleChange} />
+                        <input 
+                            placeholder={i18n.language === 'en' ? 'Description (EN)' : 'Описание на английском языке'} 
+                            name="descriptionEn" 
+                            onChange={handleChange} 
+                        />
                     </div>
                     <div className={s.input_form}>
-                        <input placeholder='Категории (через запятую)' type="text" name="categoryIds" onChange={handleChange} required />
+                        <input 
+                            placeholder={i18n.language === 'en' ? 'Categories (comma separated)' : 'Категории (через запятую)'} 
+                            type="text" 
+                            name="categoryIds" 
+                            onChange={handleChange} 
+                            required 
+                        />
                     </div>
                     <div className={s.input_form}>
-                        <input placeholder='Действие (RU)' type="text" name="actionRu" onChange={handleChange} />
+                        <input 
+                            placeholder={i18n.language === 'en' ? 'Action (RU)' : 'Действие (RU)'} 
+                            type="text" 
+                            name="actionRu" 
+                            onChange={handleChange} 
+                        />
                     </div>
                     <div className={s.input_form}>
-                        <input placeholder='Действие (EN)' type="text" name="actionEn" onChange={handleChange} />
+                        <input 
+                            placeholder={i18n.language === 'en' ? 'Action (EN)' : 'Действие (EN)'} 
+                            type="text" 
+                            name="actionEn" 
+                            onChange={handleChange} 
+                        />
                     </div>
                     <div className={s.input_wrapper}>
                         <div className={s.input_form}>
-                            <input placeholder='Телефоны (через запятую)' type="text" name="phones" onChange={handleChange} required />
+                            <input 
+                                placeholder={i18n.language === 'en' ? 'Phones (comma separated)' : 'Телефоны (через запятую)'} 
+                                type="text" 
+                                name="phones" 
+                                onChange={handleChange} 
+                                required 
+                            />
                         </div>
                         <div className={s.input_form}>
-                            <input placeholder='Ссылки (через запятую)' type="text" name="links" onChange={handleChange} required />
+                            <input 
+                                placeholder={i18n.language === 'en' ? 'Links (comma separated)' : 'Ссылки (через запятую)'} 
+                                type="text" 
+                                name="links" 
+                                onChange={handleChange} 
+                                required 
+                            />
                         </div>
                     </div>
 
                     <div className={s.input_wrapper}>
                         <div className={s.input_form}>
-                            <input placeholder='Почта' type="email" name="email" onChange={handleChange} required />
+                            <input 
+                                placeholder={i18n.language === 'en' ? 'Email' : 'Почта'} 
+                                type="email" 
+                                name="email" 
+                                onChange={handleChange} 
+                                required 
+                            />
                         </div>
                         <div className={s.input_form}>
-                            <input placeholder='Ссылка на видео' type="text" name="videoLink" onChange={handleChange} />
+                            <input 
+                                placeholder={i18n.language === 'en' ? 'Video link' : 'Ссылка на видео'} 
+                                type="text" 
+                                name="videoLink" 
+                                onChange={handleChange} 
+                            />
                         </div>
                     </div>
-                    <button type="submit">Отправить</button>
+                    <button style={{marginTop: '10px'}} type="submit">{i18n.language === 'en' ? 'Submit' : 'Отправить'}</button>
                 </form>
+
             </div>
         </div>
     );

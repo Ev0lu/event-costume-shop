@@ -1,5 +1,4 @@
 import s from './fabricators.module.css'
-import crown from '../../assets/header_crown_logotype.svg'
 import fabric_logo from '../../assets/fabric_logo.svg'
 import carousel from '../../assets/carousel.svg'
 import fabric_view from '../../assets/fabric_view.svg'
@@ -18,7 +17,7 @@ import Select from 'react-select';
 
 export function Fabricator() {
 
-    const {t, i18n} = useTranslation()
+    const { i18n } = useTranslation()
     const [offset, setOffset] = useState(0)
 
     const [manufacturers, setManufacturers] = useState<any>()
@@ -56,10 +55,9 @@ export function Fabricator() {
     }
 
     const [categories, setCategories] = useState<Category[]>([]);
-    const [category, setCategory] = useState<any>()
 
     const getAllCategories = async () => {
-        const response = await getCategories()
+        const response = await getCategories(i18n.language === 'en' ? 'en' : 'ru')
         const data = await response.json()
         const formattedCategories = data.categories.map((category: any) => ({
             label: i18n.language === 'en' ? category.name_en : category.name_ru,

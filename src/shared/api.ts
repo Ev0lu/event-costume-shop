@@ -24,8 +24,8 @@ interface CodeData {
 }
 
 
-export async function getCategories() {
-    return await fetchApiResponse(`items/categories`, {
+export async function getCategories(language: string) {
+    return await fetchApiResponse(`items/categories?language=${language}`, {
       headers: {
         'accept': 'application/json',
         'Content-Type': 'application/json',
@@ -94,3 +94,13 @@ interface PhoneData {
     linkId: string,
     validate: boolean
 }
+
+
+export async function searchCostume(language: string, startswith?: string) {
+    return await fetchApiResponse(`catalog/search/categories?language=${language}&startswith=${startswith ? startswith : ''}&limit=5`, {
+      headers: {
+        'accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+  }

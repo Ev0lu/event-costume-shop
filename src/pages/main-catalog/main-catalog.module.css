@@ -38,6 +38,22 @@
     top: -20px;
 }
 
+.vector_blob{
+    position: absolute;
+    z-index: -1;
+    right: -500px;
+    top: 900px;
+}
+
+
+.big_blob{
+    position: absolute;
+    z-index: -1;
+    right: -900px;
+    top: 1500px;
+}
+
+
 .description_text_about{
     padding: 10px 0px;
 }
@@ -94,6 +110,7 @@
     width: 280px;
     border-radius: 60px;
     transition: all 0.5s;
+    font-size: 14px;
 }
 
 .description_button:hover{
@@ -106,6 +123,9 @@
 
 .description_button button{
     color: white;
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
 .catalogs{
@@ -160,6 +180,7 @@
 
     transition: all 0.25s;
 
+    margin-bottom: 20px;
 }
 
 .catalogs_item p:hover{
@@ -185,6 +206,7 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 6%;
     padding-bottom: 50px;
+
 
 }
 

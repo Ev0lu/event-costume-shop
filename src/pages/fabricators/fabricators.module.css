@@ -304,6 +304,14 @@
     font-weight: 200;
 }
 
+.list_btn button:hover{
+    background: linear-gradient(180deg, #c072de 0%, #A64AC9 100%),
+    radial-gradient(63.75% 233.28% at 88% 161.67%, #c682de 0%, rgba(62, 58, 243, 0) 99.73%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+    radial-gradient(44.2% 168.64% at 13.11% -68.64%, #daabeb 0%, rgba(166, 74, 201, 0.1) 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+    transition: all 0.25;
+
+}
+
 .footer_wrapper{
     max-width: 1200px;
     margin: 0 auto;

@@ -1,6 +1,4 @@
 import s from './event-page.module.css'
-import crown from '../../assets/header_crown_logotype.svg'
-import fabric_logo from '../../assets/fabric_logo.svg'
 import carousel from '../../assets/details_about.svg'
 import fabric_view from '../../assets/fabric_view.svg'
 import first_blob from '../../assets/first_blob.svg'
@@ -14,7 +12,7 @@ import { useNavigate } from 'react-router-dom'
 import { Footer } from '../../shared/footer/footer'
 
 export function EventPage() {
-    const {t, i18n} = useTranslation()
+    const {i18n} = useTranslation()
 
     const [event, setEvent] = useState<any>()
     const [ad, setAd] = useState<any>()
@@ -37,21 +35,8 @@ export function EventPage() {
         getAdForPage()
     }, [])
 
-
     const navigate = useNavigate()
 
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const imagesToLoad = 4; // Количество изображений, загружаемых за раз
-
-    // Функция для загрузки новых изображений
-    const loadMoreImages = () => {
-        setCurrentIndex(prevIndex => prevIndex + imagesToLoad);
-    };
-
-    // Получаем изображения для рендеринга
-    const displayedImages = event && event.pictures 
-        ? event.pictures.slice(0, currentIndex + imagesToLoad) 
-        : [];
 
   return (
     <div className={s.fabricators}>

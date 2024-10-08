@@ -1,8 +1,6 @@
 import s from './main-catalog.module.css'
-import crown from '../../assets/header_crown_logotype.svg'
 import man_and_woman from '../../assets/man_and_woman.svg'
 import costume_creation from '../../assets/costume_creation.svg'
-import catalog_preview from '../../assets/catalog_preview.svg'
 import checkmark from '../../assets/description_galka.svg'
 import calendar from '../../assets/description_calendar.svg'
 import events from '../../assets/events.svg'
@@ -11,6 +9,9 @@ import first_blob from '../../assets/first_blob.svg'
 import second_blob from '../../assets/left_blob.svg'
 import third_blob from '../../assets/third_blob.svg'
 import last_blob from '../../assets/last_blob.svg'
+import vector_blob from '../../assets/Vector_blob.svg'
+import big_blob from '../../assets/big_blob.svg'
+import button_vector from '../../assets/button_vector.svg'
 import { lazy, useEffect, useState } from 'react'
 import { useTranslation, Trans } from 'react-i18next';
 import { getCategories } from '../../shared/api'
@@ -26,7 +27,7 @@ export function MainCatalog() {
   const [filteredCategories, setFilteredCategories] = useState([]);
 
   const getAllCategories = async () => {
-    const response = await getCategories()
+    const response = await getCategories(i18n.language === 'en' ? 'en' : 'ru')
     const data = await response.json()
     setCategories(data.categories)
     setFilteredCategories(data.categories); // Устанавливаем изначально все категории
@@ -57,10 +58,13 @@ export function MainCatalog() {
   return (
     <div className={s.main_catalog}>
       <div className={s.main_catalog_wrapper}>
-        <Header onSearch={handleSearch} link={''}/>
+        <Header link={''}/>
         <section className={s.description}>
           <div className={s.description_wrapper}>
             <img src={first_blob} className={s.first_blob}></img>
+            <img src={vector_blob} className={s.vector_blob}></img>
+            <img src={big_blob} className={s.big_blob}></img>
+
             <img loading='lazy' src={man_and_woman} className={s.man_and_woman_image}></img>
             <div className={s.description_text_about}>
               <p><Trans i18nKey="main_catalog.part1" /></p>
@@ -82,7 +86,7 @@ export function MainCatalog() {
               </div>
             </div>
             <div className={s.description_button} onClick={() => navigate('/contacts')}>
-              <button><Trans i18nKey="main_catalog.part6" />  ↗</button>
+              <button><Trans i18nKey="main_catalog.part6" />  <img src={button_vector}></img></button>
             </div>
           </div>
         </section>
@@ -95,7 +99,7 @@ export function MainCatalog() {
               <p><Trans i18nKey="main_catalog.part7" /></p>
             </div>
             <div className={s.catalogs_list}>
-              {filteredCategories.length !== 0 && filteredCategories.map((category:any) => (
+              {filteredCategories && filteredCategories.length !== 0 && filteredCategories.map((category:any) => (
                 <div className={s.catalogs_item} onClick={() => {
                     navigate(`/manufacturers/${category.category_id}`)
                     localStorage.setItem('nameManufactory', i18n.language === 'ru' ? category.name_ru : category.name_en)

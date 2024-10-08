@@ -1,6 +1,4 @@
 import s from './event.module.css'
-import crown from '../../assets/header_crown_logotype.svg'
-import fabric_logo from '../../assets/fabric_logo.svg'
 import carousel from '../../assets/carousel.svg'
 import fabric_view from '../../assets/fabric_view.svg'
 import first_blob from '../../assets/first_blob.svg'
@@ -17,7 +15,7 @@ import { Footer } from '../../shared/footer/footer'
 
 export function Event() {
 
-    const {t, i18n} = useTranslation()
+    const {i18n} = useTranslation()
     const [offset, setOffset] = useState(0)
 
     const [events, setEvents] = useState<any>()
@@ -95,11 +93,7 @@ export function Event() {
                                 <p>{firstEvent ? i18n.language === 'en' ? firstEvent.description_en : firstEvent.description_ru : '-'}</p>
                             </div>
                             <div className={s.table_about_left_contacts}>
-                                <p>Вконтакте: *ссылка*</p>
-                                <p>Вконтакте: *ссылка*</p>
-                                <p>Вконтакте: *ссылка*</p>
-                                <p>Вконтакте: *ссылка*</p>
-                                <p>Вконтакте: *ссылка*</p>
+                                <p>{firstEvent ? i18n.language === 'en' ? firstEvent.contact_info_en : firstEvent.contact_info_ru : '-'}</p>
                             </div>
                         </div>
                         <div className={s.table_about_right}>

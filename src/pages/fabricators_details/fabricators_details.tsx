@@ -1,5 +1,4 @@
 import s from './fabricators_details.module.css'
-import crown from '../../assets/header_crown_logotype.svg'
 import fabric_logo from '../../assets/fabric_logo.svg'
 import carousel from '../../assets/details_about.svg'
 import fabric_view from '../../assets/fabric_view.svg'
@@ -13,7 +12,7 @@ import { useEffect, useState } from 'react'
 import { Footer } from '../../shared/footer/footer'
 
 export function FabricatorDetails() {
-    const {t, i18n} = useTranslation()
+    const { i18n } = useTranslation()
     const [manufacture, setManufacture] = useState<any>()
 
     const getAllEvents = async () => {

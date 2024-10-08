@@ -1,5 +1,5 @@
 import './App.css'
-import { RouterProvider, createBrowserRouter, redirect } from 'react-router-dom'
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
 import { MainCatalog } from './pages/main-catalog/main-catalog'
 import { Fabricator } from './pages/fabricators/fabricators'
@@ -10,13 +10,6 @@ import { Event } from './pages/event/event'
 import { EventPage } from './pages/event-page/event-page'
 import { ContactInformation } from './pages/contact-information/contact-information'
 function App() {
-
-  const sessionLoader = async () => {
-    if (true) {
-        return redirect('/')
-    }
-    return true
-  }
   
   const router = createBrowserRouter([
     {
