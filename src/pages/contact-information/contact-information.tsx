@@ -1,8 +1,4 @@
 import s from './contact-information.module.css'
-import crown from '../../assets/header_crown_logotype.svg'
-import fabric_logo from '../../assets/fabric_logo.svg'
-import carousel from '../../assets/carousel.svg'
-import fabric_view from '../../assets/fabric_view.svg'
 import first_blob from '../../assets/first_blob.svg'
 import second_blob from '../../assets/left_blob.svg'
 
@@ -10,27 +6,55 @@ import { useTranslation, Trans } from 'react-i18next';
 import { useEffect, useState } from 'react'
 import { Header } from '../../shared/header/header'
 import { useNavigate } from 'react-router-dom'
-import { getManufacturers, getAd} from '../../shared/api'
+import { getCategories, getCSRF} from '../../shared/api'
 import { Footer } from '../../shared/footer/footer'
 import PopupForm from '../../shared/popup-form/popup-form'
 
 
 
-export function ContactInformation() {
-    const [secondManufacturer, setSecondManufacturer] = useState<any>()
-    const [thirdManufacturer, setThirdManufacturer] = useState<any>()
-    const [ad, setAd] = useState()
-  
+
+export function ContactInformation() {  
+
+    const getCsrfToken = async () => {
+        if (sessionStorage.getItem('csrf_token')){
+    
+        } else {
+          const response = await getCSRF()
+          const data = await response.json()
+          sessionStorage.setItem('csrf_token', data.csrf_token)
+        }
+    
+      }
+
+    useEffect(() => {
+        getCsrfToken()
+    }, [])
+    
     const navigate = useNavigate()
     const [isOpen, setIsOpen] = useState(false);
 
     const openPopup = () => setIsOpen(true);
     const closePopup = () => setIsOpen(false);
 
+    const { i18n } = useTranslation()
+
+    const [categories, setCategories] = useState<any[]>([]);
+
+    const getAllCategories = async () => {
+        const response = await getCategories(i18n.language === 'en' ? 'en' : 'ru')
+        const data = await response.json()
+        setCategories(data.categories);
+        console.log(categories)
+      }
+
+    useEffect(() => {
+        getAllCategories()
+    }, [])
+
   return (
     <div className={s.fabricators}>
       <div className={s.fabricators_wrapper}>
-        <PopupForm isOpen={isOpen} onClose={closePopup} />
+        <PopupForm isOpen={isOpen} onClose={closePopup} categories={categories}/>
         <Header />
         <section className={s.tables}>
             <div className={s.tables_wrapper}>
@@ -46,11 +70,11 @@ export function ContactInformation() {
                                 <p><Trans i18nKey="contacts.part2" /></p>
                             </div>
                             <div className={s.table_about_left_contacts}>
+                                {/*<p>Вконтакте: *ссылка*</p>
                                 <p>Вконтакте: *ссылка*</p>
                                 <p>Вконтакте: *ссылка*</p>
                                 <p>Вконтакте: *ссылка*</p>
-                                <p>Вконтакте: *ссылка*</p>
-                                <p>Вконтакте: *ссылка*</p>
+                                <p>Вконтакте: *ссылка*</p>*/}
                             </div>
                         </div>
                     </div>

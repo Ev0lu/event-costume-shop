@@ -1,8 +1,10 @@
-.main_catalog{
+.fabricators{
     width: 100%;
+    overflow: hidden;
+
 }
 
-.main_catalog_wrapper{
+.fabricators_wrapper{
     min-width: 100%;
 }
 
@@ -122,6 +124,7 @@
     min-width: 753px;
     justify-content: space-between;
     cursor: pointer;
+    flex: 1;
 
 
 }
@@ -228,6 +231,13 @@
     margin: 0 auto;
     display: flex;
     justify-content: center;
+    border-radius: 20px;
+    height: 320px;
+}
+
+.fabric_preview_wrapper img{
+    border-radius: 20px;
+    height: 320px;
 }
 
 .list{
@@ -523,8 +533,8 @@
 }
 
 .table_about_right_img{
-    width: 315px;
-    height: 422px;
+    max-width: 315px;
+    max-height: 422px;
     border-radius: 20px;
 }
 

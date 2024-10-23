@@ -1,18 +1,14 @@
 import s from './main-catalog.module.css'
-import man_and_woman from '../../assets/man_and_woman.svg'
 import costume_creation from '../../assets/costume_creation.svg'
 import checkmark from '../../assets/description_galka.svg'
 import calendar from '../../assets/description_calendar.svg'
 import events from '../../assets/events.svg'
-import events_arrow from '../../assets/events_arros.svg'
 import first_blob from '../../assets/first_blob.svg'
 import second_blob from '../../assets/left_blob.svg'
-import third_blob from '../../assets/third_blob.svg'
-import last_blob from '../../assets/last_blob.svg'
 import vector_blob from '../../assets/Vector_blob.svg'
 import big_blob from '../../assets/big_blob.svg'
 import button_vector from '../../assets/button_vector.svg'
-import { lazy, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation, Trans } from 'react-i18next';
 import { getCategories } from '../../shared/api'
 import { useNavigate } from 'react-router-dom'
@@ -22,8 +18,8 @@ import { Footer } from '../../shared/footer/footer'
 
 export function MainCatalog() {
 
-  const {t, i18n} = useTranslation()
-  const [categories, setCategories] = useState([])
+  const {i18n} = useTranslation()
+  const [, setCategories] = useState([])
   const [filteredCategories, setFilteredCategories] = useState([]);
 
   const getAllCategories = async () => {
@@ -43,18 +39,6 @@ export function MainCatalog() {
 
   const navigate = useNavigate()
 
-  const handleSearch = (term:any) => {
-    const filtered = categories.filter((category:any) =>
-      i18n.language === 'ru'
-        ? category.name_ru.toLowerCase().includes(term.toLowerCase())
-        : category.name_en.toLowerCase().includes(term.toLowerCase())
-    );
-    setFilteredCategories(filtered);
-  };
-
-
-
-
   return (
     <div className={s.main_catalog}>
       <div className={s.main_catalog_wrapper}>
@@ -65,7 +49,7 @@ export function MainCatalog() {
             <img src={vector_blob} className={s.vector_blob}></img>
             <img src={big_blob} className={s.big_blob}></img>
 
-            <img loading='lazy' src={man_and_woman} className={s.man_and_woman_image}></img>
+            <img loading='lazy' src='https://cdn.costumier.pro/man_and_woman.svg' className={s.man_and_woman_image}></img>
             <div className={s.description_text_about}>
               <p><Trans i18nKey="main_catalog.part1" /></p>
             </div>

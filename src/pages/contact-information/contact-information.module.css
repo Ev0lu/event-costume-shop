@@ -1,10 +1,14 @@
-.main_catalog{
+.fabricators{
     width: 100%;
+    overflow: hidden;
+
+
 }
 
-.main_catalog_wrapper{
+.fabricators_wrapper{
     min-width: 100%;
-    
+
+
 }
 
 .header{
@@ -91,6 +95,7 @@
     z-index: -1;
     top: -15px;
     left: 80px;
+
 }
 
 .left_blob{
@@ -99,6 +104,8 @@
     z-index: -2;
     left: -600px;
     top: 600px;
+    overflow: hidden;
+
 }
 
 .tables_title{

@@ -8,7 +8,7 @@ import { useTranslation, Trans } from 'react-i18next';
 import { Header } from '../../shared/header/header'
 import { getAd, getEventDescription } from '../../shared/api'
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { Footer } from '../../shared/footer/footer'
 
 export function EventPage() {
@@ -21,7 +21,6 @@ export function EventPage() {
         const response = await getEventDescription(location.pathname.split('/')[2], i18n.language)
         const data = await response.json()
         setEvent(data.event)
-        console.log(data)
       }
 
     const getAdForPage = async () => {
@@ -36,8 +35,8 @@ export function EventPage() {
     }, [])
 
     const navigate = useNavigate()
-
-
+    const location = useLocation();
+/*/${location.pathname.split*/
   return (
     <div className={s.fabricators}>
       <div className={s.fabricators_wrapper}>
@@ -47,7 +46,14 @@ export function EventPage() {
                 <img src={first_blob} className={s.first_blob}></img>
                 <img src={second_blob} className={s.left_blob}></img>
                 <div className={s.tables_title}>
-                    <p><Trans i18nKey="events.part1" /> &nbsp;&nbsp;/&nbsp;&nbsp; <Trans i18nKey="events.part2" /> &nbsp;&nbsp; / </p> 
+                    <div className={s.tables_links}>
+                        <p style={{cursor: 'pointer'}} onClick={() => {
+                            navigate('/')
+                        }}><Trans i18nKey="events.part1" /> &nbsp;&nbsp;/&nbsp;&nbsp;</p>   
+                        <p style={{cursor: 'pointer'}} onClick={() => {
+                            navigate(`/event`)
+                        }}> <Trans i18nKey="events.part2" /> &nbsp;&nbsp; /</p> 
+                    </div>
                     <h2>{event ? i18n.language === 'en' ? event.title_en : event.title_ru : '-'}</h2>
                 </div>
                 <div className={s.tables_items}>
@@ -65,18 +71,18 @@ export function EventPage() {
 
                         </div>
                         <div className={s.table_about_right}>
-                            <img className={s.table_img} src={event ? event.pictures[0].url : carousel}></img>
+                            <img style={{borderRadius: '20px'}} className={s.table_img} src={event ? event.pictures[0].url : carousel}></img>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        <section className={s.fabric_pictures}>
+        <section className={s.fabric_pictures} style={{display: event ? event.pictures.slice(1).length !== 0 ? 'flex' : 'none' : 'none'}}>
             <div className={s.fabric_pictures_wrapper}>
                 <div className={s.fabric_pictures_list}>
-                    {event && event.pictures.map((item:any) => (
+                    {event && event.pictures.slice(1).map((item:any) => (
                         <div className={s.fabric_pictures_list_item}>
-                            <img className={s.fabric_pictures_list_item_image} src={item ? item.url : photo_details}></img>
+                            <img style={{borderRadius: '20px'}} className={s.fabric_pictures_list_item_image} src={item ? item.url : photo_details}></img>
                         </div>
                     ))}
 
@@ -88,9 +94,11 @@ export function EventPage() {
                 </div>*/}
             </div>
         </section>
-        <section className={s.fabric_preview}>
+        <section className={s.fabric_preview} style={{display: ad ? ad.picture ? 'flex' : 'none' : 'none'}}>
             <div className={s.fabric_preview_wrapper}>
-                <img src={ad !== null ? ad : fabric_view}></img>
+                <a href={ad && ad.site_url}>
+                    <img loading='lazy' src={ad ? ad.picture && ad.picture.url : fabric_view} ></img>
+                </a>
             </div>
         </section>
         <section className={s.list}>

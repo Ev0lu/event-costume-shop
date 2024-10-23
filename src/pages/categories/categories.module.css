@@ -1,0 +1,170 @@
+.login{
+    height: 100%;
+    width: 100%;
+}
+
+.login_wrapper{
+    height: 100%;
+    display: flex;
+    width: 100%;
+
+}
+
+.main_select{
+    width: 20%;
+}
+
+.main_content{
+    padding: 20px;
+    width: 100%;
+    overflow-y: auto;
+
+}
+
+.manufacturer_list{
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.manufacturer_item h2{
+    width: 220px;
+}
+
+.manufacturer_item{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);; /* 4 колонки для имени, категорий, айди и кнопки */
+    padding: 0px 15px;
+    align-items: center;    
+    background-color: #ece8e8;
+}
+
+
+
+.manufacturers_item{
+    padding: 15px;
+    background-color: #d8d8d8;
+    border-bottom: 5px solid rgb(245, 244, 244);
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);; /* 4 колонки для имени, категорий, айди и кнопки */
+
+    align-items: center; 
+    margin-top: 20px;
+}
+
+
+
+
+.formModal{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 50%;
+    background-color: #ffffff;
+    padding: 25px;
+}
+
+.title_popup{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+
+    gap: 40px;
+    margin-bottom: 20px;
+}
+
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: black;
+}
+
+.input_form{
+    display: flex;
+
+}
+.input_form label{
+    display: flex;
+    width: 150px;
+    
+}
+
+.input_form input{
+    border: 1px solid #bda4c7;
+    font-size: 13px;
+    font-weight: 400;
+    color: #212121;
+    padding: 10px;
+    width: 100%;
+}
+
+.input_form label{
+    font-size: 13px;
+}
+
+.input_wrapper{
+    display: flex;
+    width: 100%;
+}
+
+
+.category_details{
+    margin-top: 40px;
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+}
+
+.category_details p{
+    text-align: start;
+    justify-content: start;
+    align-items: start;
+    margin: 0%;
+}
+
+
+.category_details input{
+    gap: 10px;
+    width: 250px;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 12px;
+}
+
+.saveButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: #cccccc;
+    font-size: 14px;
+}
+
+.saveButton:hover{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: #dddbdb;
+}
+
+.input_wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    width: 100%;
+}

@@ -7,9 +7,10 @@ import second_blob from '../../assets/left_blob.svg'
 import photo_details from '../../assets/photo_details.svg'
 import { useTranslation, Trans } from 'react-i18next';
 import { Header } from '../../shared/header/header'
-import { getManufactureDescription } from '../../shared/api'
+import { getAd, getManufactureDescription } from '../../shared/api'
 import { useEffect, useState } from 'react'
 import { Footer } from '../../shared/footer/footer'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 export function FabricatorDetails() {
     const { i18n } = useTranslation()
@@ -22,9 +23,24 @@ export function FabricatorDetails() {
         console.log(data)
       }
 
+      const [ad, setAd] = useState<any>()
+
+
+      const getAdForPage = async () => {
+        const response = await getAd('Manufacturer page')
+        const data = await response.json()
+        setAd(data.ad)
+        console.log(data)
+    }
+
+
     useEffect(() => {
+        getAdForPage()
         getAllEvents()
     }, [])
+
+    const navigate = useNavigate()
+    const location = useLocation();
 
   return (
     <div className={s.fabricators}>
@@ -35,7 +51,15 @@ export function FabricatorDetails() {
                 <img src={first_blob} className={s.first_blob}></img>
                 <img src={second_blob} className={s.left_blob}></img>
                 <div className={s.tables_title}>
-                    <p><Trans i18nKey="events.part1" /> &nbsp;&nbsp;/&nbsp;&nbsp; {localStorage.getItem('nameManufactory') ? localStorage.getItem('nameManufactory') : '-'} &nbsp;&nbsp;/&nbsp;&nbsp;</p> 
+                    <div className={s.tables_descr}>
+                        <p style={{cursor: 'pointer'}} onClick={() => {
+                            navigate('/')
+                        }}><Trans i18nKey="events.part1" /> &nbsp;&nbsp;/&nbsp;&nbsp;</p>
+                        <p style={{cursor: 'pointer'}} onClick={() => {
+                            navigate(`/manufacturers/${location.pathname.split('/')[2]}`)
+                        }}> {localStorage.getItem('nameManufactory') ? localStorage.getItem('nameManufactory') : '-'} &nbsp;&nbsp;/&nbsp;&nbsp; </p>
+
+                    </div>
                     <h2>{manufacture ? i18n.language === 'en' ? manufacture.name_en : manufacture.name_ru : '-'}</h2>
                 </div>
                 <div className={s.tables_items}>
@@ -86,7 +110,7 @@ export function FabricatorDetails() {
         <section className={s.fabric_pictures}>
             <div className={s.fabric_pictures_wrapper}>
                 <div className={s.fabric_pictures_list}>
-                    {manufacture && manufacture.products.map((item:any) => (
+                    {manufacture && manufacture.products.slice(1).map((item:any) => (
                         <div className={s.fabric_pictures_list_item}>
                             <img style={{width: '246px', height: '313px', borderRadius: '20px'}} src={item ? item.url : photo_details}></img>
                         </div>
@@ -99,16 +123,11 @@ export function FabricatorDetails() {
                 </div>*/}
             </div>
         </section>
-        <section className={s.fabric_preview}>
+        <section className={s.fabric_preview} style={{display: ad ? ad.picture ? 'flex' : 'none' : 'none'}}>
             <div className={s.fabric_preview_wrapper}>
-                <img src={fabric_view}></img>
-            </div>
-        </section>
-        <section className={s.list}>
-            <div className={s.list_wrapper}>
-                <div className={s.list_btn}>
-                    <button>{i18n.language === 'en' ? 'LOAD MORE' : 'ЗАГРУЗИТЬ ЕЩЕ'}</button>
-                </div>
+                <a href={ad && ad.site_url}>
+                    <img loading='lazy' src={ad ? ad.picture && ad.picture.url : fabric_view}></img>
+                </a>
             </div>
         </section>
         <Footer />

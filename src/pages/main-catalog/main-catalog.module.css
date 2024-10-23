@@ -1,5 +1,6 @@
 .main_catalog{
     width: 100%;
+    overflow: hidden;
 }
 
 .main_catalog_wrapper{
@@ -9,7 +10,6 @@
 
 
 .description{
-    border-bottom: 1px solid #dfdcdc;
     padding-bottom: 150px;
 }
 
@@ -130,7 +130,6 @@
 
 .catalogs{
     padding-bottom: 60px;
-    border-bottom: 1px solid #dfdcdc;
 }
 
 .catalogs_wrapper{

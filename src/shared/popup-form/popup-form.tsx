@@ -2,14 +2,16 @@ import React, { useState } from 'react';
 import s from './popup-form.module.css';
 import { sendForm } from '../api';
 import { useTranslation } from 'react-i18next';
+import Select from 'react-select';
 
 interface PopupFormProps {
     isOpen: boolean;
     onClose: () => void;
+    categories: any[];
 }
 
-const PopupForm: React.FC<PopupFormProps> = ({ isOpen, onClose }) => {
-    const { t, i18n } = useTranslation();
+const PopupForm: React.FC<PopupFormProps> = ({ isOpen, onClose, categories }) => {
+    const { i18n } = useTranslation();
     const [formData, setFormData] = useState<{
         manufacturerIcon: FileList | null;
         products: FileList | null;
@@ -55,9 +57,8 @@ const PopupForm: React.FC<PopupFormProps> = ({ isOpen, onClose }) => {
         e.preventDefault();
         const form = new FormData();
 
-        // Добавляем файлы
         if (formData.manufacturerIcon) {
-            form.append('manufacturer_icon', formData.manufacturerIcon[0]); // Первый файл
+            form.append('manufacturer_icon', formData.manufacturerIcon[0]);
         }
         if (formData.products) {
             Array.from(formData.products).forEach((file) => {
@@ -82,17 +83,28 @@ const PopupForm: React.FC<PopupFormProps> = ({ isOpen, onClose }) => {
         form.append('video_link', formData.videoLink || '');
 
         // Отправка данных
-        sendForm(form).then(() => {
-            onClose();
-        }).catch(err => {
+        sendForm(form, sessionStorage.getItem('csrf_token') || '')
+        .then(response => {
+            if (response.ok) {
+                onClose(); // Закрываем форму, если ответ успешный
+            } else {
+                // Обработка ошибки, если response не ок
+                console.error('Error:', response.statusText);
+            }
+        })
+        .catch(err => {
             console.error(err);
-            alert('Произошла ошибка при отправке заявки.');
         });
     };
 
-
     if (!isOpen) return null;
 
+
+
+    const handleSelectChange = (selectedOptions: any) => {
+        const selectedCategories = selectedOptions ? selectedOptions.map((option: any) => option.value) : [];
+        setFormData((prev) => ({ ...prev, categoryIds: selectedCategories }));
+    };
 
     return (
         <div className={s.popup}>
@@ -156,12 +168,29 @@ const PopupForm: React.FC<PopupFormProps> = ({ isOpen, onClose }) => {
                         />
                     </div>
                     <div className={s.input_form}>
-                        <input 
-                            placeholder={i18n.language === 'en' ? 'Categories (comma separated)' : 'Категории (через запятую)'} 
-                            type="text" 
-                            name="categoryIds" 
-                            onChange={handleChange} 
-                            required 
+                        <label>{i18n.language === 'en' ? 'Categories' : 'Категории'}</label>
+                        <Select
+                            options={categories.map(category => ({
+                                label: i18n.language === 'en' ? category.name_en : category.name_ru, // Название в зависимости от языка
+                                value: category.category_id // Уникальный идентификатор категории
+                            }))}                             onChange={handleSelectChange} // Обработчик выбора
+                            placeholder={i18n.language === 'en' ? 'Select category...' : 'Выбрать...'}
+                            isMulti // Позволяет выбирать несколько категорий
+                            styles={{
+                                control: (provided) => ({
+                                  ...provided,
+                                  fontFamily: "Manrope, sans-serif"
+                                }),
+                                menu: (provided) => ({
+                                  ...provided,
+                                  fontFamily: "Manrope, sans-serif"
+                                }),
+                                option: (provided) => ({
+                                  ...provided,
+                                  fontFamily: "Manrope, sans-serif"
+                                }),
+                              }}
+                            
                         />
                     </div>
                     <div className={s.input_form}>

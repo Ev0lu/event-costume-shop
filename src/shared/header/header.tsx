@@ -10,8 +10,8 @@ interface HeaderProps {
   link?: string;
 }
 
-export const Header: React.FC<HeaderProps> = ({ link }) => {
-  const { t, i18n } = useTranslation();
+export const Header: React.FC<HeaderProps> = () => {
+  const { i18n } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
   const [searchQuery, setSearchQuery] = useState('');
@@ -42,7 +42,6 @@ export const Header: React.FC<HeaderProps> = ({ link }) => {
     const data = await response.json();
     setCategories(data.categories);
     setFilteredCategories(data.categories); // Устанавливаем все категории при инициализации
-    console.log(data);
   };
 
   return (
@@ -67,7 +66,7 @@ export const Header: React.FC<HeaderProps> = ({ link }) => {
           </div>
         </div>
         <div className={s.header_cover}>
-          <div style={{ display: isActive('') ? 'flex' : 'none' }} className={s.header_search}>
+          <div className={s.header_search}>
             <input
               onChange={handleChange}
               value={searchQuery}

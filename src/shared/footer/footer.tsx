@@ -1,7 +1,5 @@
 import s from './footer.module.css'
-
-import { lazy, useEffect, useState } from 'react'
-import { useTranslation, Trans } from 'react-i18next';
+import { Trans } from 'react-i18next';
 import { useNavigate } from 'react-router-dom'
 
 
@@ -14,7 +12,7 @@ export function Footer() {
            <div className={s.footer_wrapper}>
               <div className={s.footer_navigation}>
                 <div className={s.footer_logotype}>
-                    <h2>LOGOTYPE</h2>
+                    <h2>COSTUMIER</h2>
                 </div>
                 <div className={s.footer_navbar}>
                   <div onClick={() => {navigate('/')}} className={s.footer_navbar_item}>
@@ -29,12 +27,12 @@ export function Footer() {
                   <div onClick={() => {navigate('/contacts')}} className={s.footer_navbar_item}>
                       <p><Trans i18nKey="header.part4" /></p>
                   </div>
-                  <div className={s.footer_navbar_item}>
+                  {/*<div className={s.footer_navbar_item}>
                       <p><Trans i18nKey="header.part5" /></p>
                   </div>
                   <div className={s.footer_navbar_item}>
                       <p><Trans i18nKey="header.part6" /></p>
-                  </div>
+                  </div>*/}
                 </div>
               </div>
               <div className={s.footer_copyright}>

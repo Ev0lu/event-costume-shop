@@ -9,7 +9,7 @@ import { useTranslation, Trans } from 'react-i18next';
 import { useEffect, useState } from 'react'
 import { Header } from '../../shared/header/header'
 import { useNavigate } from 'react-router-dom'
-import { getManufacturers, getAd, getCategories} from '../../shared/api'
+import { getAd, getCategories, getManufacturersUser} from '../../shared/api'
 import { Footer } from '../../shared/footer/footer'
 import Select from 'react-select';
 
@@ -24,11 +24,11 @@ export function Fabricator() {
     const [firstManufacturer, setFirstManufacturer] = useState<any>()
     const [secondManufacturer, setSecondManufacturer] = useState<any>()
     const [thirdManufacturer, setThirdManufacturer] = useState<any>()
-    const [ad, setAd] = useState()
+    const [ad, setAd] = useState<any>()
 
 
     const getAllManufacturers = async () => {
-      const response = await getManufacturers(location.pathname.split('/')[2], i18n.language, offset)
+      const response = await getManufacturersUser(location.pathname.split('/')[2], i18n.language, offset)
       const data = await response.json()
       setFirstManufacturer(data.manufacturers[0])
       setSecondManufacturer(data.manufacturers[1])
@@ -38,7 +38,7 @@ export function Fabricator() {
     }
 
     const getAdditionalManufacturers = async () => {
-        const response = await getManufacturers(location.pathname.split('/')[2], i18n.language, offset + 25)
+        const response = await getManufacturersUser(location.pathname.split('/')[2], i18n.language, offset + 25)
         setOffset(offset +  25)
         const data = await response.json()
         console.log(data)
@@ -118,12 +118,28 @@ export function Fabricator() {
                 <img src={first_blob} className={s.first_blob}></img>
                 <img src={second_blob} className={s.left_blob}></img>
                 <div className={s.tables_title}>
-                    <p><Trans i18nKey="events.part1" /> &nbsp;&nbsp;/&nbsp;&nbsp;</p> 
+                    <p style={{cursor: 'pointer'}} onClick={() => {
+                        navigate('/')
+                    }}><Trans i18nKey="events.part1" /> &nbsp;&nbsp;/&nbsp;&nbsp;</p> 
                     <h2>{localStorage.getItem('nameManufactory') ? localStorage.getItem('nameManufactory') : '-'}</h2>
                     <Select
                                 options={categories} // Опции для селекта
                                 onChange={handleSelectChange} // Обработчик выбора
                                 placeholder={i18n.language === 'en' ? 'Select category...' : 'Выбрать...'}
+                                styles={{
+                                    control: (provided) => ({
+                                      ...provided,
+                                      fontFamily: "Manrope, sans-serif"
+                                    }),
+                                    menu: (provided) => ({
+                                      ...provided,
+                                      fontFamily: "Manrope, sans-serif"
+                                    }),
+                                    option: (provided) => ({
+                                      ...provided,
+                                      fontFamily: "Manrope, sans-serif"
+                                    }),
+                                  }}
                             />
                 </div>
                 <div className={s.tables_items}>
@@ -168,9 +184,11 @@ export function Fabricator() {
                 </div>
             </div>
         </section>
-        <section className={s.fabric_preview}>
+        <section className={s.fabric_preview} style={{display: ad ? ad.picture ? 'flex' : 'none' : 'none'}}>
             <div className={s.fabric_preview_wrapper}>
-                <img src={ad !== null ? ad : fabric_view}></img>
+                <a href={ad && ad.site_url}>
+                    <img loading='lazy' src={ad ? ad.picture && ad.picture.url : fabric_view}></img>
+                </a>
             </div>
         </section>
         <section className={s.list}>
@@ -179,13 +197,13 @@ export function Fabricator() {
                     {manufacturers && manufacturers.map((manufacture: any) => (
                         <div className={s.list_item} onClick={() => navigate(`${manufacture.manufacturer_id}`)}>
                             <img src={manufacture && manufacture.logo ? manufacture.logo.url : fabric_logo} className={s.list_item_picture}></img>
-                            <p>{manufacture ? i18n.language === 'en' ? manufacture.name_en : manufacture.name_ru : '-'}</p>
+                            <p style={{paddingRight: '10px'}}>{manufacture ? i18n.language === 'en' ? manufacture.name_en : manufacture.name_ru : '-'}</p>
                         </div>
                     ))}
 
                 </div>
                 <div className={s.list_btn}>
-                    <button onClick={() => {
+                    <button style={{display: manufacturers ? manufacturers.length < 22 ? 'none' : 'flex' : 'flex'}} onClick={() => {
                         getAdditionalManufacturers()
                     }}><Trans i18nKey="events.part4" /></button>
                 </div>

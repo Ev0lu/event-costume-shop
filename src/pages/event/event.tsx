@@ -8,7 +8,7 @@ import { useTranslation, Trans } from 'react-i18next';
 import { useEffect, useState } from 'react'
 import { Header } from '../../shared/header/header'
 import { useNavigate } from 'react-router-dom'
-import { getAd, getEvents} from '../../shared/api'
+import { getAd, getEventsUser} from '../../shared/api'
 import { Footer } from '../../shared/footer/footer'
 
 
@@ -24,11 +24,11 @@ export function Event() {
     const [thirdEvent, setThirdEvent] = useState<any>()
     const [fourthEvent, setFourthEvent] = useState<any>()
 
-    const [ad, setAd] = useState()
+    const [ad, setAd] = useState<any>()
 
 
     const getAllEvents = async () => {
-      const response = await getEvents(i18n.language, offset)
+      const response = await getEventsUser(i18n.language, offset)
       const data = await response.json()
       setFirstEvent(data.events[0])
       setSecondEvent(data.events[1])
@@ -39,7 +39,7 @@ export function Event() {
     }
 
     const getAdditionalEvents = async () => {
-        const response = await getEvents(i18n.language, offset + 25)
+        const response = await getEventsUser(i18n.language, offset + 25)
         setOffset(offset +  25)
         const data = await response.json()
         console.log(data)
@@ -49,7 +49,7 @@ export function Event() {
       }
 
       const getAdForPage = async () => {
-        const response = await getAd('Catalog')
+        const response = await getAd('Events catalog')
         const data = await response.json()
         setAd(data.ad)
         console.log(data)
@@ -73,7 +73,9 @@ export function Event() {
                 <img src={first_blob} className={s.first_blob}></img>
                 <img src={second_blob} className={s.left_blob}></img>
                 <div className={s.tables_title}>
-                    <p><Trans i18nKey="events.part1" /> &nbsp;&nbsp;/&nbsp;&nbsp;</p> 
+                    <p style={{cursor: 'pointer'}} onClick={() => {
+                        navigate('/')
+                    }}><Trans i18nKey="events.part1" /> &nbsp;&nbsp;/&nbsp;&nbsp;</p> 
                     <h2><Trans i18nKey="events.part2" /></h2>
                 </div>
                 <div className={s.tables_items}>
@@ -135,9 +137,11 @@ export function Event() {
                 </div>
             </div>
         </section>
-        <section className={s.fabric_preview}>
+        <section className={s.fabric_preview} style={{display: ad ? ad.picture ? 'flex' : 'none' : 'none'}}>
             <div className={s.fabric_preview_wrapper}>
-                <img src={ad !== null ? ad : fabric_view}></img>
+                <a href={ad && ad.site_url}>
+                    <img loading='lazy' src={ad ? ad.picture && ad.picture.url : fabric_view}></img>
+                </a>
             </div>
         </section>
         <section className={s.list}>
